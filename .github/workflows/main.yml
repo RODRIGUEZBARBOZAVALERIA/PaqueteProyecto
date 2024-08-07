@@ -38,19 +38,25 @@ jobs:
         path: /home/runner/work/PaqueteProyecto/PaqueteProyecto/Seguridad/Autorizacion.Middleware/*/*/*/*.nupkg
               #Seguridad/Autorizacion.Middleware/Autorizacion.Middleware.csproj
   release:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     needs: build
-    steps:  
-    - name: Checkout 
+    steps:
+    - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Downlod Artifacts 
+    - name: Download Artifacts
       uses: actions/download-artifact@v3
+      with:
+        name: Autorizacion.Middleware.1.0.0
 
-    - name: List Files
-      run: ls -R
+    - name: Find nupkg File
+      id: find_nupkg
+      run: |
+        nupkg_path=$(find . -type f -name "*.nupkg")
+        echo "nupkg_path=$nupkg_path" >> $GITHUB_ENV
 
     - name: Prep packages
       run: dotnet nuget add source --username RODRIGUEZBARBOZAVALERIA --password ${{ secrets.PAQUETEP_TOKEN }} --store-password-in-clear-text --name paquetes "https://nuget.pkg.github.com/RODRIGUEZBARBOZAVALERIA/index.json"
-    - name: Push package to GitHub packages 
-      run: dotnet nuget push ./PaqueteProyecto/.nupkg --api-key ${{ secrets.PAQUETEP_TOKEN }}  --source "paquetes" --skip-duplicate
+
+    - name: Push package to GitHub packages
+      run: dotnet nuget push ${{ env.nupkg_path }} --api-key ${{ secrets.PAQUETEP_TOKEN }} --source "paquetes" --skip-duplicate
