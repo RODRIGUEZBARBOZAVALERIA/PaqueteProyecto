@@ -35,7 +35,7 @@ jobs:
         name: Autorizacion.Middleware.1.0.0
         if-no-files-found: error
         retention-days: 7
-        path: /home/runner/work/PaqueteProyecto/PaqueteProyecto/Seguridad/Autorizacion.Middleware/*/*.nupkg
+        path: /home/runner/work/PaqueteProyecto/PaqueteProyecto/Seguridad/Autorizacion.Middleware/*/*/*/*.nupkg
               #Seguridad/Autorizacion.Middleware/Autorizacion.Middleware.csproj
   release:
     runs-on: ubuntu-latest    
@@ -53,4 +53,4 @@ jobs:
     - name: Prep packages
       run: dotnet nuget add source --username RODRIGUEZBARBOZAVALERIA --password ${{ secrets.PAQUETEP_TOKEN }} --store-password-in-clear-text --name paquetes "https://nuget.pkg.github.com/RODRIGUEZBARBOZAVALERIA/index.json"
     - name: Push package to GitHub packages 
-      run: dotnet nuget push Seguridad/Autorizacion.Middleware/*/*.nupkg --api-key ${{ secrets.PAQUETEP_TOKEN }}  --source "paquetes" --skip-duplicate
+      run: dotnet nuget push Seguridad/Autorizacion.Middleware/*/*/*/*.nupkg --api-key ${{ secrets.PAQUETEP_TOKEN }}  --source "paquetes" --skip-duplicate
