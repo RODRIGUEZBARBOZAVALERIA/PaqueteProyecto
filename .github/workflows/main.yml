@@ -22,17 +22,17 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: /Seguridad/Autorizacion.Middleware
+      working-directory: ./Seguridad/Autorizacion.Middleware
     - name: Build
       run: dotnet build --no-restore
-      working-directory: /Seguridad/Autorizacion.Middleware
+      working-directory: ./Seguridad/Autorizacion.Middleware
     - name: Pack      
       run: dotnet pack
-      working-directory: /Seguridad/Autorizacion.Middleware
+      working-directory: ./Seguridad/Autorizacion.Middleware
 
     - uses: actions/upload-artifact@v3
       with:
-        name: Autorizacion.Middleware
+        name: Autorizacion.Middleware.1.0.0
         if-no-files-found: error
         retention-days: 7
         path: ./Seguridad/Autorizacion.Middleware/*/*/*/*.nupkg
