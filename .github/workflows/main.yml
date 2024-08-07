@@ -47,7 +47,7 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v3
       with:
-        name: Autorizacion.Middleware.1.0.0
+        name: Autorizacion.Middleware.1.0.0.nupkg
 
     - name: Find nupkg File
       id: find_nupkg
